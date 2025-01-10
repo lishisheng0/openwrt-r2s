@@ -179,6 +179,12 @@ jobs:
         retain_days: 0
         keep_minimum_runs: 2
 
+    - name: WeChat notification
+      continue-on-error: true
+      if: env.SCKEY
+      run: |
+        # [ steps.compile.outputs.status == 'success' ] && curl https://sctapi.ftqq.com/${{ secrets.SCKEY }}.send?text=🎉OpenWrt_${{ env.VERSION }}_${{matrix.target}}编译完成😋|| curl https://sctapi.ftqq.com/${{ secrets.SCKEY }}.send?text=❌OpenWrt_${{ env.VERSION }}_${{matrix.target}}编译失败😂
+
     #- name: Remove old Releases
     #  uses: dev-drprasad/delete-older-releases@master
     #  if: env.UPLOAD_RELEASE == 'true' && !cancelled()
